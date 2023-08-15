@@ -1,0 +1,5 @@
+numpy>=1.23.4
+pandas==1.5.3
+databricks-connect==13.0.0
+matplotlib==3.4.2
+pmdarima==2.0.3
