@@ -9,7 +9,7 @@ install_requires = [
 ]
 
 setup(
-    author="Boxiang Dong",
+    author="Dr. Boxiang Dong",
     name="boxiang-pylib",
     version='0.1.0',
     packages=find_packages(),
