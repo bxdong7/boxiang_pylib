@@ -4,10 +4,10 @@ import pmdarima.arima as pm
 from matplotlib.figure import Figure
 from typing import Tuple
 import sys
-from library.setting import PACKAGE_PATH
+from boxiang_pylib.setting import PACKAGE_PATH
 if PACKAGE_PATH not in sys.path:
     sys.path.append(PACKAGE_PATH)
-from library.jc.ts.sarimax import predict_metric
+from boxiang_pylib.jc.ts.sarimax import predict_metric
 from databricks.connect import DatabricksSession
 
 

@@ -5,11 +5,11 @@ import numpy as np
 import pmdarima.arima as pm
 from matplotlib.figure import Figure
 import sys
-from library.setting import PACKAGE_PATH
+from boxiang_pylib.setting import PACKAGE_PATH
 if PACKAGE_PATH not in sys.path:
     sys.path.append(PACKAGE_PATH)
-from library.general.ts.sarimax import build_ts_model
-from library.jc.data.data_loader import get_ts_data
+from boxiang_pylib.general.ts.sarimax import build_ts_model
+from boxiang_pylib.jc.etl.data_loader import get_ts_data
 
 
 def predict_metric(
@@ -49,8 +49,8 @@ def predict_metric(
         ext_vars: a list of variables, including SPEND, FEATURING
         m (Optional): the seasona length. In case of no season, set m = 1
         by: DAY/WEEK/MONTH
-        start_dt (Optional): the start dt of data loading
-        end_dt (Optional): the end dt of data loading
+        start_dt (Optional): the start dt of etl loading
+        end_dt (Optional): the end dt of etl loading
         pred_length (Optional): number of periods to predict
         future_pred_ext_values (Optional): a 2D array. Can provide either pred_length or future_pred_ext_values. In case both are provided, pred_length must be the same as future_pred_ext_values.shape[0]
         tuning_duration (Optional): the maximum seconds allocated for tuning
@@ -60,7 +60,7 @@ def predict_metric(
         pred_df: the prediction frame that is indexed by date/time and includes target_var_hat, target_var_lower, target_var_upper and ext_vars,
         Figure: this figure includes 2 plots. The left plot is the validation of the model (80% and 20% of df), and the right plot is the prediction result, which includes the confidence interval
     """
-    # load data
+    # load etl
     df = get_ts_data(
         spark=spark,
         game=game,

@@ -29,7 +29,7 @@ def get_ts_data(
         end_dt: Optional[str] = None,
 ) -> pd.DataFrame:
     """
-    Return a data frame that is indexed by date/week/month, and includes LTV, SPEND, CPI, INSTALL, REVENUE (NET), ROAS, FEATURING.
+    Return a etl frame that is indexed by date/week/month, and includes LTV, SPEND, CPI, INSTALL, REVENUE (NET), ROAS, FEATURING.
     If target_var is ARPI, also includes ARPI (ARPI_001, ARPI_003, ARPI_007, ARPI_014, ARPI_030, ARPI_060, ARPI_090, ARPI_180, ARPI_270)
 
     Args:
@@ -46,8 +46,8 @@ def get_ts_data(
                     REVENUE
                     ROAS
         by: DAY/WEEK/MONTH
-        start_dt (Optional): the start dt of data loading
-        end_dt (Optional): the end dt of data loading
+        start_dt (Optional): the start dt of etl loading
+        end_dt (Optional): the end dt of etl loading
 
     Returns:
         a pd.DataFrame without NULL values. For missing periods, it will be all 0s
@@ -235,7 +235,7 @@ def get_ts_data(
         """
     ua_df = spark.sql(sql_stmt)
 
-    # get featuring data
+    # get featuring etl
     where_stmts = [game_stmt, market_stmt, start_stmt, end_stmt]
     where_stmts = [stmt for stmt in where_stmts if stmt is not None]
     where_stmt = " AND ".join(where_stmts)

@@ -15,7 +15,7 @@ from typing import Tuple, Union, List, Optional
 def visualize_ts(s: pd.Series, m: int) -> None:
     """
     Given a time series indexed by time/date, show three plots
-        decomposed plot, which includes data, trend, season and random
+        decomposed plot, which includes etl, trend, season and random
         tsdisplay: which includes time series, ACF plot and histgram
         PACF plot
 
@@ -44,7 +44,7 @@ def train_ts_model(train_df: pd.DataFrame, pred_df: pd.DataFrame, target_var: st
     Train a SARIMAX model and use it to predict target_var, lower and upper
 
     Args:
-        train_df: the data that is indexed by time/date and includes target_var and ext_vars
+        train_df: the etl that is indexed by time/date and includes target_var and ext_vars
         target_var: the variable name to be modeled
         ext_vars: external signals used to predict target_var, can be None
         m: the seasona length. In case of no season, set m = 1
@@ -105,7 +105,7 @@ def train_ts_model(train_df: pd.DataFrame, pred_df: pd.DataFrame, target_var: st
 
 def visualize_ts_prediction(train_df: pd.DataFrame, pred_df: pd.DataFrame, target_var: str, ax: Axes) -> Axes:
     """
-    Draw a time series plot that shows the training data and prediction result. If groud truth is available, also show it in scatters.
+    Draw a time series plot that shows the training etl and prediction result. If groud truth is available, also show it in scatters.
 
     Args:
         train_df: a dataframe indexed by date/time and includes target_var
@@ -131,7 +131,7 @@ def build_ts_model(df: pd.DataFrame, target_var: str, ext_vars: Optional[Union[N
     Build a SARIMAX model to predict target_var,
 
     Args:
-        df: the data that is indexed by time/date
+        df: the etl that is indexed by time/date
         target_var: the variable name to be modeled
         ext_vars: external signals used to predict target_var, can be None
         m: the seasona length. In case of no season, set m = 1

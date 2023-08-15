@@ -10,10 +10,10 @@ install_requires = [
 
 setup(
     author="Boxiang Dong",
-    name="pylib",
+    name="boxiang-pylib",
     version='0.1.0',
     packages=find_packages(),
-    description="Boxiang's personal library in Python",
+    description="Boxiang's personal boxiang_pylib in Python",
     install_requires=install_requires,
     license="MIT",
     url="https://github.com/bxdong7/library",
