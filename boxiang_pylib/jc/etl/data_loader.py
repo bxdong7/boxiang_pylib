@@ -285,8 +285,11 @@ def get_ts_data(
     df = df.sort_index()
 
     # fill in missing dates
+    print(df.index)
     start_dt = df.index.min()
     end_dt = df.index.max()
+    print(start_dt, end_dt)
+
     if by == 'DAY':
         freq = 'D'
     elif by == 'WEEK':
