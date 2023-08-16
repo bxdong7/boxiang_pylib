@@ -11,7 +11,7 @@ install_requires = [
 setup(
     author="Dr. Boxiang Dong",
     name="boxiang-pylib",
-    version='0.1.0',
+    version='0.1.1',
     packages=find_packages(),
     description="Boxiang's personal boxiang_pylib in Python",
     install_requires=install_requires,

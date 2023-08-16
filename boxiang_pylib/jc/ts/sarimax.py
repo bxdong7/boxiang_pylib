@@ -34,6 +34,7 @@ def predict_metric(
     Predict future metrics by using SARIMAX
 
     Args:
+        spark: a SparkSession object
         game: can be a single game or a list of games
         market: IT or GO or both
         user_source_type_cd: US, MK or [US, MK]

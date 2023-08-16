@@ -33,6 +33,7 @@ def get_ts_data(
     If target_var is ARPI, also includes ARPI (ARPI_001, ARPI_003, ARPI_007, ARPI_014, ARPI_030, ARPI_060, ARPI_090, ARPI_180, ARPI_270)
 
     Args:
+        spark: a SparkSession object
         game: can be a single game or a list of games
         market: IT or GO or both
         user_source_type_cd: US, MK or [US, MK]
