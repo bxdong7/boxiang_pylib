@@ -2,6 +2,7 @@ from typing import Tuple, Union, List, Optional
 import pandas as pd
 from datetime import date, timedelta
 from pyspark.sql.session import SparkSession
+import pyspark.sql.functions as F
 
 def convert_to_tuple(input: Union[str, List[str]]) -> str:
     """
@@ -283,7 +284,7 @@ def get_ts_data(
     if target_var.startswith('ARPI'):
         day = int(target_var[-3:])
         cutoff_date = date.today() - timedelta(days=day)
-        df = df.loc[df[by] < cutoff_date]
+        df = df.where[F.col(by) < cutoff_date]
 
     # set index
     df = df.toPandas()
