@@ -1,5 +1,6 @@
 from typing import Tuple, Union, List, Optional
 import pandas as pd
+from datetime import date, timedelta
 from pyspark.sql.session import SparkSession
 
 def convert_to_tuple(input: Union[str, List[str]]) -> str:
@@ -278,8 +279,13 @@ def get_ts_data(
     df = ua_df.join(feature_df, on=by, how='outer')
     df = df.na.fill(0)
 
-    # drop na
-    df = df.na.drop()
+    # cut df if target is ARPI
+    if target_var.startswith('ARPI'):
+        day = int(target_var[-3:])
+        cutoff_date = date.today() - timedelta(days=day+1)
+        df = df[:cutoff_date]
+
+    # set index
     df = df.toPandas()
     df = df.set_index(by)
     df = df.sort_index()
