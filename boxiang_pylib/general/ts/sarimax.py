@@ -160,6 +160,9 @@ def build_ts_model(df: pd.DataFrame, target_var: str, ext_vars: Optional[Union[N
     smape_error = smape(valid_df[target_var].values, valid_df[f"{target_var}_hat"].values)
     axs[0].set_title(f"Validation SMAPE = {smape_error:.4f}", fontsize=18)
 
+    if pred_length is None:
+        pred_length = future_pred_ext_values.shape[0]
+
     # prepare predict_df
     if by == 'DAY':
         pred_index = [df.index[-1] + timedelta(days=i) for i in range(1, pred_length + 1)]
