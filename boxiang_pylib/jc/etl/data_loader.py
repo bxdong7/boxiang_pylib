@@ -282,8 +282,8 @@ def get_ts_data(
     # cut df if target is ARPI
     if target_var.startswith('ARPI'):
         day = int(target_var[-3:])
-        cutoff_date = date.today() - timedelta(days=day+1)
-        df = df[:cutoff_date]
+        cutoff_date = date.today() - timedelta(days=day)
+        df = df.loc[df[by] < cutoff_date]
 
     # set index
     df = df.toPandas()
