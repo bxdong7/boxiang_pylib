@@ -61,8 +61,11 @@ def train_ts_model(train_df: pd.DataFrame, pred_df: pd.DataFrame, target_var: st
     d = max(adf_diffs, kpss_diffs)
 
     D_ch = pm.nsdiffs(y, m=m, max_D=12, test='ch')
-    D_oscb = pm.nsdiffs(y, m=m, max_D=12, test='ocsb')
-    D = max(D_ch, D_oscb)
+    try:
+        D_oscb = pm.nsdiffs(y, m=m, max_D=12, test='ocsb')
+        D = max(D_ch, D_oscb)
+    except:
+        D = D_ch
 
     # train
     if ext_vars is None:
