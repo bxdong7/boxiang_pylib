@@ -119,9 +119,9 @@ def get_ts_data(
                 null,
                 sum(
                     case 
-                        when APPLICATION_FAMILY_NAME = 'Harry Potter' then AD_REVS_DAY_{day:0>3d}_AMT*0.616
-                        when APPLICATION_FAMILY_NAME = 'Jurassic World the Game' then AD_REVS_DAY_{day:0>3d}_AMT*0.525
-                        when APPLICATION_FAMILY_NAME = 'DC Heroes & Villains' then AD_REVS_DAY_{day:0>3d}_AMT*0.546
+                        when APPLICATION_FAMILY_NAME = 'Harry Potter' then AD_REVS_DAY_{day:0>3d}_AMT*0.88
+                        when APPLICATION_FAMILY_NAME = 'Jurassic World the Game' then AD_REVS_DAY_{day:0>3d}_AMT*0.75
+                        when APPLICATION_FAMILY_NAME = 'DC Heroes & Villains' then AD_REVS_DAY_{day:0>3d}_AMT*0.78
                         else AD_REVS_DAY_{day:0>3d}_AMT*0.7 
                     end
                 )   
