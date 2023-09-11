@@ -81,6 +81,15 @@ def predict_metric(
         keep_cols = [target_var] + ext_vars
     df = df[keep_cols]
 
+    # revise m
+    if m == 1:
+        if by == 'DAY':
+            m = 365
+        elif by == 'WEEK':
+            m = 52
+        else:
+            m = 12
+
     # build_ts_model
     model, pred_df, fig = build_ts_model(
         df=df,
