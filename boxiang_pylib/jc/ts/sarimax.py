@@ -90,6 +90,10 @@ def predict_metric(
         else:
             m = 12
 
+    # replace 0 with small values
+    ZERO_REPLACEMENT = 0.001
+    df = df.replace(0, ZERO_REPLACEMENT)
+
     # build_ts_model
     model, pred_df, fig = build_ts_model(
         df=df,
