@@ -237,6 +237,7 @@ def get_ts_data(
         order by 1
         """
     ua_df = spark.sql(sql_stmt)
+    print(sql_stmt)
 
     # get featuring etl
     where_stmts = [game_stmt, market_stmt, start_stmt, end_stmt]
