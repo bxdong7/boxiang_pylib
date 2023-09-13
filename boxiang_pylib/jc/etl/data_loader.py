@@ -86,7 +86,7 @@ def get_ts_data(
     else:
         start_stmt = None
     if end_dt is not None:
-        end_stmt = f"CALENDAR_DT >= '{end_dt}'"
+        end_stmt = f"CALENDAR_DT <= '{end_dt}'"
     else:
         end_stmt = None
     where_stmts = [mvp_stmt, game_stmt, market_stmt, type_stmt, source_stmt, channel_stmt, country_stmt, start_stmt,
@@ -237,7 +237,6 @@ def get_ts_data(
         order by 1
         """
     ua_df = spark.sql(sql_stmt)
-    print(sql_stmt)
 
     # get featuring etl
     where_stmts = [game_stmt, market_stmt, start_stmt, end_stmt]
