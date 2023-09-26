@@ -288,21 +288,23 @@ def get_ts_data(
 
     # set index
     df = df.toPandas()
-    df = df.set_index(by)
-    df = df.sort_index()
 
-    # fill in missing dates
-    start_dt = df.index.min()
-    end_dt = df.index.max()
+    if not df.empty:
+        df = df.set_index(by)
+        df = df.sort_index()
 
-    if by == 'DAY':
-        freq = 'D'
-    elif by == 'WEEK':
-        freq = 'W-MON'
-    else:
-        freq = 'MS'
-    idx = pd.date_range(start_dt, end_dt, freq=freq).date
-    df = df.reindex(idx)
-    df = df.fillna(0)
+        # fill in missing dates
+        start_dt = df.index.min()
+        end_dt = df.index.max()
+
+        if by == 'DAY':
+            freq = 'D'
+        elif by == 'WEEK':
+            freq = 'W-MON'
+        else:
+            freq = 'MS'
+        idx = pd.date_range(start_dt, end_dt, freq=freq).date
+        df = df.reindex(idx)
+        df = df.fillna(0)
 
     return df
