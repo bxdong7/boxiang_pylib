@@ -90,6 +90,11 @@ def predict_metric(
         else:
             m = 12
 
+    # remove the leading 0 rows
+    na_s = (df != 0).any(axis=1)
+    na_s[na_s == True].index[0]
+    df = df[na_s[na_s == True].index[0]:]
+
     # replace 0 with small values
     ZERO_REPLACEMENT = 0.001
     df = df.replace(0, ZERO_REPLACEMENT)
