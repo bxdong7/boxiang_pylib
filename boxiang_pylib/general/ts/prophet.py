@@ -43,7 +43,6 @@ def predict_with_prophet_model(
     for param in model_param_list:
         if param in params:
             model_params[param] = params[param]
-    print(model_params)
     if 'cap' in params:
         cap = params['cap']
     else:
@@ -160,10 +159,7 @@ def visualize_prophet_prediction(
     # copy data
     train_df = train_df.copy(deep=True)
     pred_df = pred_df.copy(deep=True)
-    if type(train_df.iloc[0][by]) == str:
-        train_df[by] = train_df[by].apply(lambda x: datetime.strptime(x, DATE_FORMAT))
-    if type(pred_df.iloc[0][by]) == str:
-        pred_df[by] = pred_df[by].apply(lambda x: datetime.strptime(x, DATE_FORMAT))
+    pred_df[by] = pred_df[by].apply(lambda x: x.date())
 
     # rename columns
     train_df = train_df.rename(
@@ -175,22 +171,18 @@ def visualize_prophet_prediction(
     pred_df = pred_df.rename(
         columns={
             by: 'ds',
-            f"{target_var}_hat": 'y_hat',
-            f"{target_var}_lower": 'y_lower',
-            f"{target_var}_upper": 'y_upper',
+            f"{target_var}": 'yhat',
+            f"{target_var}_lower": 'yhat_lower',
+            f"{target_var}_upper": 'yhat_upper',
         }
     )
     df = pd.concat([train_df, pred_df], ignore_index=True)
-
-    print(df)
-    print(type(df.iloc[0]['ds']))
+    df['ds'] = pd.to_datetime(df['ds'])
 
     # plot predictions
-    fig, axs = plt.subplots(1, 2, figsize=(40, 8))
-    m.plot(df, ax=axs[0])
-    axs[0].set_title("Predictions", fontsize=20)
-    m.plot_components(df, ax=axs[1])
-    axs[1].set_title("Components", fontsize=20)
+    fig, ax = plt.subplots(figsize=(20, 8))
+    m.plot(df, ax=ax)
+    ax.set_title("Predictions", fontsize=20)
     fig.suptitle(target_var, fontsize=25)
     return fig
 
@@ -244,7 +236,7 @@ def train_prophet_model(
     Returns:
         m: a Prophet model.
         pred_df: a prediction data frame that includes by, f"{target_var}", f"{target_var}_lower", f"{target_var}_upper".
-        fig: a figure that includes the predictions (left) and components (right).
+        fig: a figure that shows the predictions.
     """
     # split into train and valid set
     n = df.shape[0]
