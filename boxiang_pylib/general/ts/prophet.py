@@ -182,6 +182,9 @@ def visualize_prophet_prediction(
     )
     df = pd.concat([train_df, pred_df], ignore_index=True)
 
+    print(df)
+    print(type(df.iloc[0]['ds']))
+
     # plot predictions
     fig, axs = plt.subplots(1, 2, figsize=(40, 8))
     m.plot(df, ax=axs[0])
