@@ -1,9 +1,7 @@
-
 from prophet import Prophet
 import pandas as pd
 import numpy as np
 from matplotlib.figure import Figure
-from pyspark import SparkConf, SparkContext
 from databricks.connect import DatabricksSession
 from typing import Tuple
 
@@ -11,7 +9,6 @@ from boxiang_pylib.jc.ts.prophet import predict_metric
 
 def test_jc_ts_prophet() -> Tuple[Prophet, pd.DataFrame, Figure]:
     spark = DatabricksSession.builder.getOrCreate()
-    spark.sparkContext = None
     game = 'Emoji Blitz'
     market = 'GO'
     user_source_type_cd = 'US'

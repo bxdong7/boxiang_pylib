@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from typing import List, Dict, Union, Tuple
+from datetime import datetime
 from prophet import Prophet
 from hyperopt import fmin, hp, tpe
 from hyperopt import SparkTrials, STATUS_OK
@@ -8,6 +9,7 @@ from pyspark.sql import SparkSession
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from boxiang_pylib.general.utils.loss import logcosh_loss
+from boxiang_pylib.setting import DATE_FORMAT
 
 def predict_with_prophet_model(
         train_df: pd.DataFrame,
@@ -158,6 +160,10 @@ def visualize_prophet_prediction(
     # copy data
     train_df = train_df.copy(deep=True)
     pred_df = pred_df.copy(deep=True)
+    if type(train_df.iloc[0][by]) == str:
+        train_df[by] = train_df[by].apply(lambda x: datetime.strptime(x, DATE_FORMAT))
+    if type(pred_df.iloc[0][by]) == str:
+        pred_df[by] = pred_df[by].apply(lambda x: datetime.strptime(x, DATE_FORMAT))
 
     # rename columns
     train_df = train_df.rename(
