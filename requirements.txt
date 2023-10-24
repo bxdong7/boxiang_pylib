@@ -7,3 +7,4 @@ pystan
 prophet
 hyperopt==0.2.7
 chardet
+scikit-learn

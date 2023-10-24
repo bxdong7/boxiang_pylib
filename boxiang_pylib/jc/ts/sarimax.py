@@ -111,5 +111,3 @@ def predict_metric(
         tuning_duration=tuning_duration
     )
     return model, pred_df, fig
-
-# 973-740-1330
