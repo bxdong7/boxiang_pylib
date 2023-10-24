@@ -5,7 +5,7 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 from sklearn.linear_model import Ridge
-from hyperopt import fmin, hp, tpe, SparkTrials, STATUS_OK
+from hyperopt import fmin, hp, tpe, Trials, SparkTrials, STATUS_OK
 
 def train_ridge_model(
         X: np.array,
@@ -205,8 +205,10 @@ def build_ridge_regression_model(
                 parallelism = max_workers
             else:
                 parallelism = int(0.1 * max_evals)
-
-        spark_trials = SparkTrials(parallelism, timeout=timeout)
+        try:
+            trials = SparkTrials(parallelism, timeout=timeout)
+        except:
+            trials = Trials()
 
         # perform tpe search
         algo = tpe.suggest
@@ -236,7 +238,7 @@ def build_ridge_regression_model(
             space=tune_space,
             algo=algo,
             max_evals=max_evals,
-            trials=spark_trials
+            trials=trials
         )
         # retrain with best params
         for param in ['fit_intercept', 'positive']:
