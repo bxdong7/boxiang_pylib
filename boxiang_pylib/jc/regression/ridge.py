@@ -89,6 +89,7 @@ def train_predict(
         start_dt=start_dt,
         end_dt=end_dt
     )
+    last_train_dt = df.index[-1]
     df = df.reset_index(drop=False)
 
     # train model and generate plot
@@ -112,7 +113,6 @@ def train_predict(
     if future_feature_vals is not None:
         y_pred = ridge.predict(future_feature_vals)
         n = y_pred.shape[0]
-        last_train_dt = df.index[-1]
         freq_d = {
             'DAY': 'D',
             'WEEK': 'W-MON',
