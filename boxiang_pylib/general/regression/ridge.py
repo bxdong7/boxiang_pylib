@@ -200,7 +200,7 @@ def build_ridge_regression_model(
 
         # determine parallelism
         if parallelism is None:
-            max_workers = int(spark.sparkContext.getConf().get('spark.databricks.clusterUsageTags.clusterMaxWorkers'))
+            max_workers = int(spark.conf.get('spark.databricks.clusterUsageTags.clusterMaxWorkers'))
             if max_workers <= 0.1 * max_evals:
                 parallelism = max_workers
             else:
